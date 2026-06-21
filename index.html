@@ -527,7 +527,7 @@ body::before{
       <span class="dots">• • • • •</span>
       <span class="flag">🇮🇳</span>
     </div>
-    <div class="subtitle">Met at uni in the UK. He went home to Pakistan, I went home to India.<br><b id="daysApartText">—</b> since I left. Still the same two people, further apart on the map.</div>
+    <div class="subtitle">Met at uni in the UK. I went home to India.<br><b id="daysApartText">—</b> since I left. Still the same two people, further apart on the map.</div>
   </div>
 
   <div class="stat-row">
@@ -541,7 +541,7 @@ body::before{
     </div>
     <div class="stat-box">
       <div class="stat-num">∞</div>
-      <div class="stat-label">miles, who's counting</div>
+      <div class="stat-label">miles? who's counting</div>
     </div>
   </div>
 
@@ -562,9 +562,9 @@ body::before{
           <ellipse cx="32" cy="34" rx="1.4" ry="1" fill="#C84B4B"/>
           <path d="M29 35q3 2 6 0" stroke="#2B241C" stroke-width="1.1" stroke-linecap="round"/>
         </svg>
-        <div class="cat-bubble">a known bug report: he shows it in 47 ways but goes quiet when it's time to say the actual words. let's fix that 🛠️</div>
+        <div class="cat-bubble">a known bug report: he shows it in 100 different ways but changes topic when it's time to say the actual words. let's fix that NOW!! 🛠️</div>
       </div>
-      <div class="card-title">A Letter, Long Overdue</div>
+      <div class="card-title">A Letter, Long Overdue (if you know what i mean -.-)</div>
       <div class="card-sub">One tap. No excuses. No "you know what I mean."</div>
       <button class="stamp-btn" onclick="goStage(1)">PRESS TO SAY YOU LOVE ME</button>
     </div>
@@ -590,7 +590,7 @@ body::before{
     <!-- STAGE 3 -->
     <div class="confirm-stage" id="stage-3">
       <div class="stage-progress"><div class="stage-dot done"></div><div class="stage-dot done"></div><div class="stage-dot done"></div></div>
-      <div class="card-title">Are you REALLY REALLY sure??</div>
+      <div class="card-title">Pakki baat h??</div>
       <div class="card-sub">No going back after this one. This is the real button.</div>
       <button class="stamp-btn" onclick="triggerFlood()">YES. I LOVE HER. SEND IT.</button>
       <button class="stamp-btn ghost" onclick="goStage(0)">...okay fine let me think more</button>
@@ -606,14 +606,14 @@ body::before{
   <div class="museum-content" id="museumContent">
     <div class="museum-inner">
 
-      <div class="exhibit-label">Exhibit A — The Photographs</div>
+      <div class="exhibit-label">Exhibit A — The Memories</div>
       <div class="carousel-wrap">
         <div class="carousel-track" id="carouselTrack"></div>
       </div>
       <div class="carousel-hint">← swipe through us →</div>
-      <div class="photo-caption">📝 each photo below is a placeholder — swap the <code>src</code> in the <code>photos</code> array in the code for your real photo files (10 slots ready)</div>
+      <div class="photo-caption"> A glimpse of us — across borders, across time. Dono duniyan ke uss paar ek maidaan mein jaha koi sahi aur galat nahi tha :') </div>
 
-      <div class="exhibit-label">Exhibit B — The Soundtrack</div>
+      <div class="exhibit-label">Exhibit B — Songs that make me think of you (add your own ones to this too) </div>
       <div class="playlist-box">
         <iframe src="https://open.spotify.com/embed/playlist/408ZM79gA9lSCuWQavooFP?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media"></iframe>
       </div>
@@ -621,7 +621,7 @@ body::before{
     </div>
   </div>
 
-  <div class="footer-note">— posted with love, awaiting reply —</div>
+  <div class="footer-note">— posted with love, awaiting reply. Now Call me and tell me that your love me —</div>
 </div>
 
 <!-- LIGHTBOX -->
@@ -639,7 +639,7 @@ body::before{
 <div class="flood-overlay" id="floodOverlay">
   <div id="floodItems"></div>
   <div class="flood-message">
-    <h2>Awww I love you sooooo much more 🥹💛</h2>
+    <h2>Awww I love you sooooo much more RAAAD 🥹💛</h2>
     <p>(screenshot this. frame it. never let him forget he said it.)</p>
     <button class="flood-close" onclick="closeFlood()">okay i'm crying a little</button>
   </div>
@@ -716,16 +716,16 @@ function toggleMuseum(){
    { src: "photo1.jpg", caption: "Our first coffee date" }
 */
 const photos = [
-  { src: "images/photo1.jpg", caption: "Our first date" },
-  { src: "images/photo2.jpg", caption: "London trip" },
+  { src: "images/photo1.jpg", caption: "Our first (iykwim ;))" },
+  { src: "images/photo2.jpg", caption: "The 50 years ago this was us picture" },
   { src: "images/photo3.jpg", caption: "Birthday dinner" },
-  { src: "images/photo4.jpg", caption: "Park walk" },
-  { src: "images/photo5.jpg", caption: "Christmas 2025" },
-  { src: "images/photo6.jpg", caption: "Coffee runs" },
-  { src: "images/photo7.jpg", caption: "Movie night" },
-  { src: "images/photo8.jpg", caption: "Beach day" },
-  { src: "images/photo9.jpg", caption: "Graduation" },
-  { src: "images/photo10.jpg", caption: "Our last hug" }
+  { src: "images/photo4.jpg", caption: "Your Birthday and that Park walk (iykwim again)" },
+  { src: "images/photo5.jpg", caption: "First picture I took of you" },
+  { src: "images/photo6.jpg", caption: "Uni runs" },
+  { src: "images/photo7.jpg", caption: "Wants to secretly choke me picture" },
+  { src: "images/photo8.jpg", caption: "First picture you took of me" },
+  { src: "images/photo9.jpg", caption: "Best First Date" },
+  { src: "images/photo10.jpg", caption: "Just US <3" }
 ];
 
 const track = document.getElementById('carouselTrack');
