@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Postmarked 💌</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --paper:#F4ECDC;
+  --paper-dark:#E8DCC4;
+  --navy:#1F3A5F;
+  --navy-light:#2E5078;
+  --red:#C84B4B;
+  --red-dark:#A93838;
+  --green:#7A9B76;
+  --green-dark:#5E7F5A;
+  --gold:#D4A24C;
+  --ink:#2B241C;
+  --faint:#8A7F6E;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,.stamp-font{font-family:'Special Elite',cursive;}
+
+.app{
+  max-width:480px;
+  margin:0 auto;
+  min-height:100vh;
+  padding:28px 18px 60px;
+  position:relative;
+  z-index:1;
+}
+/* faint paper texture */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0px, transparent 1px, transparent 2px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.012) 0px, transparent 1px, transparent 2px);
+  z-index:0;
+}
+
+/* ---------- HEADER ---------- */
+.header{
+  text-align:center;
+  margin-bottom:22px;
+}
+.kit-label{
+  font-size:10.5px;
+  letter-spacing:2.5px;
+  color:var(--red);
+  margin-bottom:8px;
+  text-transform:uppercase;
+  font-weight:700;
+  font-family:'Inter',sans-serif;
+}
+.title{
+  font-size:28px;
+  font-weight:400;
+  color:var(--navy);
+  margin:0;
+  line-height:1.25;
+  font-family:'Special Elite',cursive;
+}
+.title span{color:var(--red);}
+.route-line{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:12px;
+  font-size:12px;
+  color:var(--faint);
+  font-weight:600;
+}
+.route-line .flag{font-size:15px;}
+.route-line .dots{
+  flex:0 0 auto;
+  font-size:11px;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+.subtitle{
+  font-size:11.5px;
+  color:var(--faint);
+  margin-top:10px;
+  line-height:1.5;
+}
+.subtitle b{color:var(--red);}
+
+/* ---------- STAT ROW (postmark stamps) ---------- */
+.stat-row{
+  display:flex;
+  gap:10px;
+  margin-bottom:22px;
+}
+.stat-box{
+  flex:1;
+  background:var(--paper);
+  border:2px solid var(--navy);
+  border-radius:50%;
+  aspect-ratio:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  transform:rotate(-2deg);
+}
+.stat-box:nth-child(2){transform:rotate(1.5deg);}
+.stat-box:nth-child(3){transform:rotate(-1deg);}
+.stat-box::before{
+  content:'';
+  position:absolute;
+  inset:5px;
+  border:1.5px dashed var(--navy);
+  border-radius:50%;
+  opacity:0.5;
+}
+.stat-num{
+  font-size:21px;
+  font-weight:800;
+  color:var(--navy);
+  font-family:'Inter',sans-serif;
+  line-height:1;
+}
+.stat-label{
+  font-size:8px;
+  color:var(--navy);
+  margin-top:3px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  font-weight:700;
+  padding:0 4px;
+}
+
+/* ---------- POSTCARD (signature element) ---------- */
+.postcard{
+  background:#FFFDF8;
+  color:var(--ink);
+  border-radius:6px;
+  padding:24px 20px 22px;
+  margin-bottom:18px;
+  position:relative;
+  border:1px solid var(--paper-dark);
+  box-shadow:0 4px 14px rgba(43,36,28,0.12), 0 1px 0 rgba(43,36,28,0.06);
+}
+/* airmail stripes */
+.airmail-edge{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:6px;
+  background:repeating-linear-gradient(45deg, var(--red) 0 10px, var(--navy) 10px 20px, var(--paper) 20px 22px);
+  border-radius:6px 6px 0 0;
+  opacity:0.85;
+}
+.postmark{
+  position:absolute;
+  top:14px;right:16px;
+  width:54px;height:54px;
+  border:2px solid var(--red);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:rotate(8deg);
+  opacity:0.75;
+}
+.postmark span{
+  font-size:8px;
+  font-weight:700;
+  color:var(--red);
+  text-align:center;
+  line-height:1.3;
+  font-family:'Special Elite',cursive;
+}
+
+.card-title{
+  font-size:18px;
+  font-weight:400;
+  margin:8px 0 4px;
+  text-align:center;
+  font-family:'Special Elite',cursive;
+  color:var(--navy);
+}
+.card-sub{
+  font-size:11.5px;
+  color:var(--faint);
+  margin-bottom:18px;
+  line-height:1.5;
+  text-align:center;
+}
+
+/* ---------- CAT MASCOT ---------- */
+.cat-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+}
+.cat-svg{width:46px;height:46px;flex-shrink:0;}
+.cat-bubble{
+  background:var(--paper);
+  border-radius:10px;
+  padding:9px 12px;
+  font-size:11px;
+  font-weight:500;
+  color:var(--ink);
+  line-height:1.4;
+  flex:1;
+  border:1px solid var(--paper-dark);
+}
+@keyframes catBob{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-3px) rotate(-2deg);}
+}
+.cat-bob{animation:catBob 2.2s ease-in-out infinite; transform-origin:bottom center;}
+
+/* ---------- CONFIRM FLOW ---------- */
+.confirm-stage{display:none;}
+.confirm-stage.active{display:block; animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.stamp-btn{
+  width:100%;
+  background:var(--red);
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:17px;
+  font-family:'Inter',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  box-shadow:0 5px 0 var(--red-dark);
+  transition:transform .08s, box-shadow .08s;
+  letter-spacing:0.3px;
+}
+.stamp-btn:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 var(--red-dark);
+}
+.stamp-btn.ghost{
+  background:var(--paper);
+  color:var(--faint);
+  border:1.5px solid var(--paper-dark);
+  box-shadow:none;
+  font-size:12.5px;
+  padding:11px;
+  margin-top:10px;
+  font-weight:600;
+}
+.stamp-btn.ghost:active{opacity:0.7;}
+
+.stage-progress{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-bottom:16px;
+}
+.stage-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--paper-dark);
+}
+.stage-dot.done{background:var(--red);}
+
+/* ---------- MUSEUM SECTION ---------- */
+.museum-toggle{
+  width:100%;
+  background:var(--navy);
+  border:none;
+  color:var(--paper);
+  border-radius:8px;
+  padding:15px;
+  font-family:'Special Elite',cursive;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.museum-toggle .arrow{transition:transform .25s; font-family:'Inter',sans-serif;}
+.museum-toggle.open .arrow{transform:rotate(180deg);}
+
+.museum-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+.museum-content.open{max-height:3000px;}
+.museum-inner{padding-top:16px;}
+
+.exhibit-label{
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:var(--red);
+  text-transform:uppercase;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+/* ---------- PHOTO CAROUSEL ---------- */
+.carousel-wrap{
+  position:relative;
+  margin-bottom:8px;
+}
+.carousel-track{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:6px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--navy) transparent;
+}
+.carousel-track::-webkit-scrollbar{height:5px;}
+.carousel-track::-webkit-scrollbar-thumb{background:var(--navy);border-radius:4px;}
+.carousel-photo{
+  flex:0 0 78%;
+  scroll-snap-align:center;
+  border-radius:8px;
+  overflow:hidden;
+  border:3px solid white;
+  box-shadow:0 3px 10px rgba(43,36,28,0.18);
+  cursor:pointer;
+  position:relative;
+  aspect-ratio:4/5;
+}
+.carousel-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.carousel-photo .num-tag{
+  position:absolute;
+  bottom:6px;right:6px;
+  background:rgba(31,58,95,0.85);
+  color:white;
+  font-size:10px;
+  font-weight:700;
+  padding:3px 7px;
+  border-radius:5px;
+  font-family:'Inter',sans-serif;
+}
+.carousel-hint{
+  text-align:center;
+  font-size:10px;
+  color:var(--faint);
+  margin-bottom:18px;
+}
+.photo-caption{
+  font-size:10.5px;
+  color:var(--faint);
+  text-align:center;
+  margin-bottom:18px;
+  line-height:1.5;
+}
+
+/* photo lightbox */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(20,16,10,0.92);
+  z-index:150;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.lightbox.show{display:flex;}
+.lightbox-img-wrap{
+  max-width:100%;
+  max-height:80vh;
+  border-radius:10px;
+  overflow:hidden;
+  border:4px solid white;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+.lightbox-img-wrap img{
+  display:block;
+  max-width:100%;
+  max-height:80vh;
+  object-fit:contain;
+}
+.lightbox-close{
+  position:absolute;
+  top:20px;right:20px;
+  background:white;
+  color:var(--ink);
+  border:none;
+  width:38px;height:38px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.lightbox-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:white;
+  border:none;
+  width:42px;height:42px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  color:var(--ink);
+}
+.lightbox-nav.prev{left:16px;}
+.lightbox-nav.next{right:16px;}
+.lightbox-counter{
+  position:absolute;
+  bottom:24px;left:50%;
+  transform:translateX(-50%);
+  color:white;
+  font-size:12px;
+  font-weight:600;
+  background:rgba(0,0,0,0.4);
+  padding:5px 14px;
+  border-radius:14px;
+}
+
+/* ---------- PLAYLIST ---------- */
+.playlist-box{
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:8px;
+}
+.playlist-box iframe{width:100%;border:none;border-radius:10px;}
+
+/* ---------- LOVE FLOOD ---------- */
+.flood-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  overflow:hidden;
+  background:rgba(31,58,95,0.95);
+}
+.flood-overlay.show{display:block;}
+.flood-item{
+  position:absolute;
+  font-size:30px;
+  animation:floatUp linear forwards;
+  user-select:none;
+}
+@keyframes floatUp{
+  from{transform:translateY(110vh) rotate(0deg); opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  to{transform:translateY(-15vh) rotate(360deg); opacity:0;}
+}
+.flood-message{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  z-index:101;
+  width:88%;
+}
+.flood-message h2{
+  font-size:27px;
+  color:white;
+  margin:0 0 10px;
+  line-height:1.35;
+  font-family:'Special Elite',cursive;
+}
+.flood-message p{
+  font-size:12px;
+  color:var(--gold);
+  margin:0 0 18px;
+}
+.flood-close{
+  background:var(--red);
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:13px 24px;
+  font-family:'Inter',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-8px);}
+  40%{transform:translateX(8px);}
+  60%{transform:translateX(-5px);}
+  80%{transform:translateX(5px);}
+}
+.shake{animation:shake 0.5s ease;}
+
+.footer-note{
+  text-align:center;
+  font-size:10px;
+  color:var(--faint);
+  margin-top:22px;
+  font-family:'Special Elite',cursive;
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <div class="header">
+    <div class="kit-label">✈ Air Mail · Handle With Love ✈</div>
+    <h1 class="title">Say It<span>.</span></h1>
+    <div class="route-line">
+      <span class="flag">🇵🇰</span>
+      <span class="dots">• • • • •</span>
+      <span class="flag">🇬🇧</span>
+      <span class="dots">• • • • •</span>
+      <span class="flag">🇮🇳</span>
+    </div>
+    <div class="subtitle">Met at uni in the UK. He went home to Pakistan, I went home to India.<br><b id="daysApartText">—</b> since I left. Still the same two people, further apart on the map.</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num" id="daysTogetherNum">—</div>
+      <div class="stat-label">days together</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="daysApartNum">—</div>
+      <div class="stat-label">days apart</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">miles, who's counting</div>
+    </div>
+  </div>
+
+  <!-- THE SAY IT FLOW -->
+  <div class="postcard">
+    <div class="airmail-edge"></div>
+    <div class="postmark"><span>PAR<br>AVION</span></div>
+
+    <!-- STAGE 0: INTRO -->
+    <div class="confirm-stage active" id="stage-0">
+      <div class="cat-row">
+        <svg class="cat-svg cat-bob" viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="38" rx="15" ry="13" fill="#F8C98A"/>
+          <path d="M20 22l3-10 7 7" fill="#F8C98A"/>
+          <path d="M44 22l-3-10-7 7" fill="#F8C98A"/>
+          <circle cx="27" cy="30" r="1.6" fill="#2B241C"/>
+          <circle cx="37" cy="30" r="1.6" fill="#2B241C"/>
+          <ellipse cx="32" cy="34" rx="1.4" ry="1" fill="#C84B4B"/>
+          <path d="M29 35q3 2 6 0" stroke="#2B241C" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+        <div class="cat-bubble">a known bug report: he shows it in 47 ways but goes quiet when it's time to say the actual words. let's fix that 🛠️</div>
+      </div>
+      <div class="card-title">A Letter, Long Overdue</div>
+      <div class="card-sub">One tap. No excuses. No "you know what I mean."</div>
+      <button class="stamp-btn" onclick="goStage(1)">PRESS TO SAY YOU LOVE ME</button>
+    </div>
+
+    <!-- STAGE 1 -->
+    <div class="confirm-stage" id="stage-1">
+      <div class="stage-progress"><div class="stage-dot done"></div><div class="stage-dot"></div><div class="stage-dot"></div></div>
+      <div class="card-title">Wait.</div>
+      <div class="card-sub">You sure you mean it? Not just tapping to close this tab?</div>
+      <button class="stamp-btn" onclick="goStage(2)">YES, I MEAN IT</button>
+      <button class="stamp-btn ghost" onclick="goStage(0)">hold on, let me think</button>
+    </div>
+
+    <!-- STAGE 2 -->
+    <div class="confirm-stage" id="stage-2">
+      <div class="stage-progress"><div class="stage-dot done"></div><div class="stage-dot done"></div><div class="stage-dot"></div></div>
+      <div class="card-title">Are you REALLY sure?</div>
+      <div class="card-sub">This is the kind of thing you can't take back. Last chance to chicken out.</div>
+      <button class="stamp-btn" onclick="goStage(3)">I AM 100% SURE</button>
+      <button class="stamp-btn ghost" onclick="goStage(0)">okay actually let me think</button>
+    </div>
+
+    <!-- STAGE 3 -->
+    <div class="confirm-stage" id="stage-3">
+      <div class="stage-progress"><div class="stage-dot done"></div><div class="stage-dot done"></div><div class="stage-dot done"></div></div>
+      <div class="card-title">Are you REALLY REALLY sure??</div>
+      <div class="card-sub">No going back after this one. This is the real button.</div>
+      <button class="stamp-btn" onclick="triggerFlood()">YES. I LOVE HER. SEND IT.</button>
+      <button class="stamp-btn ghost" onclick="goStage(0)">...okay fine let me think more</button>
+    </div>
+
+  </div>
+
+  <!-- MUSEUM OF US -->
+  <button class="museum-toggle" id="museumToggle" onclick="toggleMuseum()">
+    <span>🏛 Museum of Us</span>
+    <span class="arrow">▾</span>
+  </button>
+  <div class="museum-content" id="museumContent">
+    <div class="museum-inner">
+
+      <div class="exhibit-label">Exhibit A — The Photographs</div>
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+      <div class="carousel-hint">← swipe through us →</div>
+      <div class="photo-caption">📝 each photo below is a placeholder — swap the <code>src</code> in the <code>photos</code> array in the code for your real photo files (10 slots ready)</div>
+
+      <div class="exhibit-label">Exhibit B — The Soundtrack</div>
+      <div class="playlist-box">
+        <iframe src="https://open.spotify.com/embed/playlist/408ZM79gA9lSCuWQavooFP?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media"></iframe>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-note">— posted with love, awaiting reply —</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav prev" onclick="navLightbox(-1)">‹</button>
+  <button class="lightbox-nav next" onclick="navLightbox(1)">›</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+  <div class="lightbox-counter" id="lightboxCounter">1 / 10</div>
+</div>
+
+<!-- FULL SCREEN FLOOD -->
+<div class="flood-overlay" id="floodOverlay">
+  <div id="floodItems"></div>
+  <div class="flood-message">
+    <h2>Awww I love you sooooo much more 🥹💛</h2>
+    <p>(screenshot this. frame it. never let him forget he said it.)</p>
+    <button class="flood-close" onclick="closeFlood()">okay i'm crying a little</button>
+  </div>
+</div>
+
+<script>
+/* ================= LIVE DAY COUNTERS =================
+   These recalculate every time the page loads, based on real dates,
+   so the numbers are always correct without manual edits.
+*/
+const TOGETHER_SINCE = new Date(2025, 1, 10); // Feb 10, 2025 (month is 0-indexed)
+const APART_SINCE = new Date(2026, 5, 2);     // June 2, 2026
+
+function daysBetween(start, end){
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const endUTC = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+  return Math.round((endUTC - startUTC) / msPerDay);
+}
+
+function updateCounters(){
+  const today = new Date();
+  const daysTogether = daysBetween(TOGETHER_SINCE, today);
+  const daysApart = daysBetween(APART_SINCE, today);
+  document.getElementById('daysTogetherNum').textContent = daysTogether;
+  document.getElementById('daysApartNum').textContent = daysApart;
+  document.getElementById('daysApartText').textContent = daysApart + (daysApart === 1 ? ' day' : ' days');
+}
+updateCounters();
+
+/* ================= SAY IT FLOW ================= */
+function goStage(n){
+  document.querySelectorAll('.confirm-stage').forEach(s=>s.classList.remove('active'));
+  document.getElementById('stage-'+n).classList.add('active');
+}
+
+const floodEmojis = ['💛','😻','🫶','✨','💫','😭','🥹','💌','🐱','✈️'];
+function triggerFlood(){
+  const overlay = document.getElementById('floodOverlay');
+  const itemsWrap = document.getElementById('floodItems');
+  itemsWrap.innerHTML = '';
+  overlay.classList.add('show');
+  document.getElementById('app').classList.add('shake');
+  setTimeout(()=>document.getElementById('app').classList.remove('shake'), 500);
+
+  for(let i=0;i<60;i++){
+    const el = document.createElement('div');
+    el.className = 'flood-item';
+    el.textContent = floodEmojis[Math.floor(Math.random()*floodEmojis.length)];
+    el.style.left = Math.random()*100+'vw';
+    const duration = 2.5 + Math.random()*2.5;
+    el.style.animationDuration = duration+'s';
+    el.style.animationDelay = (Math.random()*1.4)+'s';
+    el.style.fontSize = (22 + Math.random()*28)+'px';
+    itemsWrap.appendChild(el);
+  }
+}
+function closeFlood(){
+  document.getElementById('floodOverlay').classList.remove('show');
+  goStage(0);
+}
+
+/* ================= MUSEUM TOGGLE ================= */
+function toggleMuseum(){
+  const content = document.getElementById('museumContent');
+  const toggle = document.getElementById('museumToggle');
+  content.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+/* ================= PHOTO CAROUSEL =================
+   10 placeholder photo slots. To use your real pictures, replace each
+   "src" value below with your photo's filename or URL, e.g.:
+   { src: "photo1.jpg", caption: "Our first coffee date" }
+*/
+const photos = [
+  { src: "images/photo1.jpg", caption: "Our first date" },
+  { src: "images/photo2.jpg", caption: "London trip" },
+  { src: "images/photo3.jpg", caption: "Birthday dinner" },
+  { src: "images/photo4.jpg", caption: "Park walk" },
+  { src: "images/photo5.jpg", caption: "Christmas 2025" },
+  { src: "images/photo6.jpg", caption: "Coffee runs" },
+  { src: "images/photo7.jpg", caption: "Movie night" },
+  { src: "images/photo8.jpg", caption: "Beach day" },
+  { src: "images/photo9.jpg", caption: "Graduation" },
+  { src: "images/photo10.jpg", caption: "Our last hug" }
+];
+
+const track = document.getElementById('carouselTrack');
+track.innerHTML = photos.map((p, i) => `
+  <div class="carousel-photo" onclick="openLightbox(${i})">
+    <img src="${p.src}" alt="memory ${i+1}">
+    <div class="num-tag">${i+1} / ${photos.length}</div>
+  </div>
+`).join('');
+
+/* ================= LIGHTBOX ================= */
+let currentPhotoIndex = 0;
+function openLightbox(i){
+  currentPhotoIndex = i;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('show');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('show');
+}
+function navLightbox(dir){
+  currentPhotoIndex = (currentPhotoIndex + dir + photos.length) % photos.length;
+  renderLightbox();
+}
+function renderLightbox(){
+  document.getElementById('lightboxImg').src = photos[currentPhotoIndex].src;
+  document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex+1} / ${photos.length}`;
+}
+document.getElementById('lightbox').addEventListener('click', (e)=>{
+  if(e.target.id === 'lightbox') closeLightbox();
+});
+</script>
+</body>
+</html>
