@@ -336,15 +336,19 @@ body::before{
   cursor:pointer;
   position:relative;
   aspect-ratio:4/5;
+  background:white;
 }
 .carousel-photo img{
-  width:100%;height:100%;
+  width:100%;
+  height:auto;
+  max-height:75%;
   object-fit:cover;
   display:block;
 }
 .carousel-photo .num-tag{
   position:absolute;
-  bottom:6px;right:6px;
+  bottom:32px;
+  right:6px;
   background:rgba(31,58,95,0.85);
   color:white;
   font-size:10px;
@@ -352,6 +356,19 @@ body::before{
   padding:3px 7px;
   border-radius:5px;
   font-family:'Inter',sans-serif;
+}
+.carousel-photo .caption-text{
+  text-align:center;
+  font-size:11px;
+  color:var(--faint);
+  padding:6px 8px 8px;
+  font-weight:500;
+  background:white;
+  border-radius:0 0 8px 8px;
+  min-height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .carousel-hint{
   text-align:center;
@@ -711,9 +728,8 @@ function toggleMuseum(){
 }
 
 /* ================= PHOTO CAROUSEL =================
-   10 placeholder photo slots. To use your real pictures, replace each
-   "src" value below with your photo's filename or URL, e.g.:
-   { src: "photo1.jpg", caption: "Our first coffee date" }
+   10 photo slots with captions. Replace each "src" value below
+   with your photo's filename or URL.
 */
 const photos = [
   { src: "images/photo1.jpeg", caption: "Our first (iykwim ;))" },
@@ -733,6 +749,7 @@ track.innerHTML = photos.map((p, i) => `
   <div class="carousel-photo" onclick="openLightbox(${i})">
     <img src="${p.src}" alt="memory ${i+1}">
     <div class="num-tag">${i+1} / ${photos.length}</div>
+    <div class="caption-text">${p.caption || ''}</div>
   </div>
 `).join('');
 
@@ -752,7 +769,8 @@ function navLightbox(dir){
 }
 function renderLightbox(){
   document.getElementById('lightboxImg').src = photos[currentPhotoIndex].src;
-  document.getElementById('lightboxCounter').textContent = `${currentPhotoIndex+1} / ${photos.length}`;
+  document.getElementById('lightboxCounter').textContent = 
+    `${currentPhotoIndex+1} / ${photos.length} — ${photos[currentPhotoIndex].caption || ''}`;
 }
 document.getElementById('lightbox').addEventListener('click', (e)=>{
   if(e.target.id === 'lightbox') closeLightbox();
